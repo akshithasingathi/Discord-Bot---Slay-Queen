@@ -299,67 +299,55 @@ async def shop(inter, args: Stonks = None):
     name='buy',
     description='Access the shop and buy yourself some nice goodies. Alias: /buy',
 )
-async def buy(inter, args: Stonks):
+async def buy(inter, args: Stonks, amount: int):
     if inter.user.id not in users:
         users[inter.user.id] = User.User(inter.user.id)
     userVar = users[inter.user.id]
 
     #WOOD
     if args == 1:
-        if userVar.balance < 100:
-            await inter.send("This item costs $100. How can you not even afford that? What's that? Oh, sorry, I can't hear you over the sound of my *AirPods* :headphones:")
+        if userVar.balance < 100*amount:
+            await inter.send("You don't have enough money for this purchase.")
         else:
-            userVar.balance -= 100
-            userVar.inv[args] += 1
-            await inter.send(f"Congrats on your purchase of: :wood:. You now have {userVar.inv[args]} :wood:")
+            userVar.balance -= 100*amount
+            userVar.inv[args] += amount
+            await inter.send(f"Congrats on your purchase of: {amount} :wood:. You now have {userVar.inv[args]} :wood:")
 
     #STONE
     if args == 2:
-        if userVar.balance < 450:
-            await inter.send("This item costs $450. You should probably practice some saving methods if you want to buy this item LOL!")
+        if userVar.balance < 450*amount:
+            await inter.send("You don't have enough money for this purchase.")
         else:
-            userVar.balance -= 450
-            userVar.inv[args] += 1
-            await inter.send(f"Congrats on your purchase of: :rock:. You now have {userVar.inv[args]} :rock:")
+            userVar.balance -= 450*amount
+            userVar.inv[args] += amount
+            await inter.send(f"Congrats on your purchase of: {amount} :rock:. You now have {userVar.inv[args]} :rock:")
 
     #IRON
     if args == 3:
-        if userVar.balance < 1000 and userVar.balance > 500:
-            inter.send("This item costs $1000. You're almost halfway there, keep saving! ")
-        elif userVar.balance < 1000:
-            await inter.send("This item costs $1000. You should probably practice some safe saving methods if you want to buy this item LOL!")
+        if userVar.balance < 1000*amount:
+            await inter.send("You don't have enough money for this purchase.")
         else:
-            userVar.balance -= 1000
-            userVar.inv[args] += 1
-            await inter.send(f"Congrats on your purchase of: :magnet:. You now have {userVar.inv[args]} :magnet:")
+            userVar.balance -= 1000*amount
+            userVar.inv[args] += amount
+            await inter.send(f"Congrats on your purchase of: {amount} :magnet:. You now have {userVar.inv[args]} :magnet:")
 
     #SILVER
     if args == 4:
-        if userVar.balance < 1750 and userVar.balance < 250:
-            await inter.send("This item costs $1750. You need to save up a LOTTT more LOL!")
-        elif userVar.balance < 1750 and userVar.balance > 1500:
-            await inter.send("This item costs $1750. You only need to save up a little more :coin:! You got this:)")
-        elif userVar.balance < 1750:
-            await inter.send("This item costs 1750. keep saving up, you got this!!")
+        if userVar.balance < 1750*amount:
+            await inter.send("You don't have enough money for this purchase.")
         else:
-            userVar.balance -= 1750
-            userVar.inv[args] += 1
-            await inter.send(f"Congrats on your purchase of: :second_place:. You now have {userVar.inv[args]} :second_place:")
+            userVar.balance -= 1750*amount
+            userVar.inv[args] += amount
+            await inter.send(f"Congrats on your purchase of: {amount} :second_place:. You now have {userVar.inv[args]} :second_place:")
 
     #DIAMOND
     if args == 5:
-        if userVar.balance < 6000 and userVar.balance > 1000:
-            await inter.send("This item costs $6000. maybe try purchasing something else from the shop!, or keep saving up!!!")
-        elif userVar.balance < 6000 and userVar.balance < 500:
-            await inter.send("This item may be wayyy out of your reach, maybe try purchasing something else from the shop! Or, keep saving up! You got this:)")
-        elif userVar.balance < 6000 and userVar.balance > 3000:
-            await inter.send("This item costs $6000. You're almost halfway there, keep saving! ")
-        elif userVar.balance < 6000:
-            await inter.send("This item costs $6000. Try saving some more :coin: or, don't be shy to take a look at other stuff from the shop!")
+        if userVar.balance < 6000*amount:
+            await inter.send("You don't have enough money for this purchase.")
         else:
-            userVar.balance -= 6000
-            userVar.inv[args] += 1
-            await inter.send(f"Congrats on your purchase of: :gem:. You now have {userVar.inv[args]} :gem:")
+            userVar.balance -= 6000*amount
+            userVar.inv[args] += amount
+            await inter.send(f"Congrats on your purchase of: {amount} :gem:. You now have {userVar.inv[args]} :gem:")
 
 #Items enum type
 class Items(Enum):
